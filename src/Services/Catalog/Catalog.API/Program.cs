@@ -2,15 +2,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
 
-// A. Carter (Minimal API)
 builder.Services.AddCarter();
-
-// B. MediatR & Behaviors (Logging & Validation từ BuildingBlocks)
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
 builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(assembly);
     config.AddOpenBehavior(typeof(ValidationBehavior<,>)); 
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+    config.AddOpenBehavior(typeof(CachingBehavior<,>));
 });
 
 builder.Services.AddValidatorsFromAssembly(assembly);

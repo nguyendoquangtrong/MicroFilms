@@ -16,7 +16,7 @@
     <ItemGroup>
       <Folder Include="Exceptions\" />
       <Folder Include="Features\Movies\DeleteMovie\" />
-      <Folder Include="Features\Movies\GetMovies\" />
+      <Folder Include="Features\Movies\GetMovieById\" />
       <Folder Include="Features\Movies\UpdateMovie\" />
       <Folder Include="Infrastructure\Database\" />
       <Folder Include="Infrastructure\Messaging\" />
@@ -34,6 +34,7 @@
       <PackageReference Include="Marten" Version="8.17.0" />
       <PackageReference Include="MassTransit" Version="9.0.1-develop.47" />
       <PackageReference Include="MassTransit.RabbitMQ" Version="9.0.1-develop.47" />
+      <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.0" />
     </ItemGroup>
 
 </Project>

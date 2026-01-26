@@ -1,6 +1,10 @@
-namespace Catalog.API.Features.Movies.GetMovieById;
+namespace Catalog.API.Features.Movies.GetMovies;
 
-public record GetMoviesQuery(int? PageNumber, int? PageSize) : IQuery<GetMoviesResult>;
+public record GetMoviesQuery(int? PageNumber, int? PageSize) : IQuery<GetMoviesResult>, ICachedQuery
+{
+    public string CacheKey => $"GetMovies_{PageNumber ?? 1}_{PageSize ?? 10}";
+    public TimeSpan? Expiration => TimeSpan.FromMinutes(10);}
+
 public record GetMoviesResult(IEnumerable<Movie> Movies);
 
 internal class GetMoviesQueryHandler(IDocumentSession session) : IQueryHandler<GetMoviesQuery, GetMoviesResult>

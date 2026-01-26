@@ -1,4 +1,4 @@
-namespace Catalog.API.Features.Movies.GetMovieById;
+namespace Catalog.API.Features.Movies.GetMovies;
 public record GetMoviesRequest(int? PageNumber, int? PageSize);
 
 public record GetMoviesResponse(IEnumerable<Movie> Movies);
