@@ -10,7 +10,6 @@ public class Movie
     public string? PosterUrl { get; set; }
     public string? VideoUrl { get; set; }
     public VideoStatus Status { get; set; } = VideoStatus.Pending;
-    
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
 }
