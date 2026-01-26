@@ -1,7 +1,4 @@
-using BuildingBlocks.CQRS;
-using Catalog.API.Domain.Entities;
-using FluentValidation;
-using Marten;
+
 
 namespace Catalog.API.Features.Movies.CreateMovie;
 
