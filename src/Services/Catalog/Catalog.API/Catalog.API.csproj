@@ -14,10 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Exceptions\" />
-      <Folder Include="Features\Movies\DeleteMovie\" />
-      <Folder Include="Features\Movies\GetMovieById\" />
-      <Folder Include="Features\Movies\UpdateMovie\" />
       <Folder Include="Infrastructure\Database\" />
       <Folder Include="Infrastructure\Messaging\" />
     </ItemGroup>

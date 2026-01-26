@@ -22,10 +22,9 @@ public class CreateMovieValidator : AbstractValidator<CreateMovieCommand>
 }
 
 // Handler nâng cấp
-public class CreateMovieHandler(
+public class CreateMovieCommandHandler(
     IDocumentSession session, 
-    IPublishEndpoint publishEndpoint, // Inject MassTransit
-    ILogger<CreateMovieHandler> logger
+    IPublishEndpoint publishEndpoint
     ) : ICommandHandler<CreateMovieCommand, CreateMovieResult>
 {
     public async Task<CreateMovieResult> Handle(CreateMovieCommand command, CancellationToken cancellationToken)
