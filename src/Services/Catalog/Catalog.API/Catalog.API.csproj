@@ -16,7 +16,6 @@
     <ItemGroup>
       <Folder Include="Exceptions\" />
       <Folder Include="Features\Movies\DeleteMovie\" />
-      <Folder Include="Features\Movies\GetMovieById\" />
       <Folder Include="Features\Movies\GetMovies\" />
       <Folder Include="Features\Movies\UpdateMovie\" />
       <Folder Include="Infrastructure\Database\" />
@@ -24,12 +23,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\..\..\Microservices\Projects\E_Commerce_Microservices\src\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
+      <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
       <PackageReference Include="Carter" Version="10.0.0" />
+      <PackageReference Include="Mapster" Version="10.0.0-pre01" />
       <PackageReference Include="Marten" Version="8.17.0" />
+      <PackageReference Include="MassTransit" Version="9.0.1-develop.47" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="9.0.1-develop.47" />
     </ItemGroup>
 
 </Project>
