@@ -7,7 +7,7 @@ public class GetMoviesEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/Products", async ([AsParameters] GetMoviesRequest request, ISender sender) =>
+        app.MapGet("/movies", async ([AsParameters] GetMoviesRequest request, ISender sender) =>
             {
                 var query = request.Adapt<GetMoviesQuery>();
                 var result = await sender.Send(query);

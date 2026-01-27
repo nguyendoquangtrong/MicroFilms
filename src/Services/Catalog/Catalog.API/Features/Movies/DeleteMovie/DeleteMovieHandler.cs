@@ -11,12 +11,13 @@ public class DeleteCommandValidator : AbstractValidator<DeleteMovieCommand>
     }
 }
 
-public class DeleteCommandHandler(IDocumentSession session) : ICommandHandler<DeleteMovieCommand, DeleteMovieResult>
+public class DeleteCommandHandler(IDocumentSession session, IPublisher publisher) : ICommandHandler<DeleteMovieCommand, DeleteMovieResult>
 {
     public async Task<DeleteMovieResult> Handle(DeleteMovieCommand command, CancellationToken cancellationToken)
     {
         session.Delete<Movie>(command.Id);
         await session.SaveChangesAsync(cancellationToken);
+        publisher.Publish(new MovieDeletedEvent(command.Id), cancellationToken);
         return new DeleteMovieResult(true);
     }
 } 

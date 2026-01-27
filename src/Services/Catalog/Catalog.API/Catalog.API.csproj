@@ -14,11 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Infrastructure\Database\" />
-      <Folder Include="Infrastructure\Messaging\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
     </ItemGroup>
 
@@ -28,8 +23,8 @@
       <PackageReference Include="Carter" Version="10.0.0" />
       <PackageReference Include="Mapster" Version="10.0.0-pre01" />
       <PackageReference Include="Marten" Version="8.17.0" />
-      <PackageReference Include="MassTransit" Version="9.0.1-develop.47" />
-      <PackageReference Include="MassTransit.RabbitMQ" Version="9.0.1-develop.47" />
+      <PackageReference Include="MassTransit" Version="8.3.6" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="8.3.6" />
       <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="10.0.0" />
     </ItemGroup>
 

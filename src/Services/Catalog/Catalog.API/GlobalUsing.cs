@@ -14,3 +14,5 @@ global using HealthChecks.UI.Client;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using Marten.Pagination;
 global using Catalog.API.Exceptions;
+global using Catalog.API.Infrastructure.Messaging;
+global using Microsoft.Extensions.Caching.Distributed;

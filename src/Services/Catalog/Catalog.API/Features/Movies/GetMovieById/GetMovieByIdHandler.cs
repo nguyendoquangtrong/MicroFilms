@@ -2,7 +2,7 @@ namespace Catalog.API.Features.Movies.GetMovieById;
 
 public record GetMovieByIdQuery(Guid Id) : IQuery<GetMovieByIdResult>, ICachedQuery
 {
-    public string CacheKey =>  $"GetMovies_{Id}";
+    public string CacheKey =>  $"GetMovieById_{Id}";
     public TimeSpan? Expiration =>  TimeSpan.FromMinutes(10);
 }
 

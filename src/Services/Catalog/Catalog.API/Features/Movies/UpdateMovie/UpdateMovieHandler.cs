@@ -23,7 +23,7 @@ public class UpdateMovieCommandValidator : AbstractValidator<UpdateMovieCommand>
     }
 }
 
-internal class UpdateProductCommandHandler(IDocumentSession session) : ICommandHandler<UpdateMovieCommand,UpdateMovieResult>
+internal class UpdateProductCommandHandler(IDocumentSession session, IPublisher publisher) : ICommandHandler<UpdateMovieCommand,UpdateMovieResult>
 {
     public async Task<UpdateMovieResult> Handle(UpdateMovieCommand command, CancellationToken cancellationToken)
     {
@@ -41,6 +41,7 @@ internal class UpdateProductCommandHandler(IDocumentSession session) : ICommandH
         
         session.Update(movie);
         await session.SaveChangesAsync(cancellationToken);
+        await publisher.Publish(new MovieUpdatedEvent(command.Id), cancellationToken);
         return new UpdateMovieResult(true);
     }
 }
