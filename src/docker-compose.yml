@@ -1,6 +1,7 @@
 services:
-  postgres:
+  catalog-db:
     image: postgres:17
+    container_name: microfilms-catalog-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -8,10 +9,27 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pg_catalog_data:/var/lib/postgresql/data
     networks:
       - microfilms-network
-
+    restart: always
+  
+  media-db:
+    image: postgres:17
+    container_name: microfilms-media-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=MediaDB
+    ports:
+      - "5433:5432" # Map port 5433 bên ngoài vào 5432 bên trong
+    volumes:
+      - pg_media_data:/var/lib/postgresql/data
+    networks:
+      - microfilms-network
+    restart: always
+        
+    
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -46,4 +64,5 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data:
+  pg_catalog_data:
+  pg_media_data:

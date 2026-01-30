@@ -9,6 +9,7 @@ namespace Media.Domain.Models;
 
 public class MediaAsset : Aggregate<Guid>
 {
+    public MovieId MovieId { get; private set; } = default!;
     public StorageLocation Storage { get; private set; } = default!;
     public FileMetadata Metadata { get; private set; } = default!;
     public MediaStatus Status { get; private set; }
@@ -16,7 +17,7 @@ public class MediaAsset : Aggregate<Guid>
     
     private MediaAsset() { }
     
-    public static MediaAsset Create(Guid id, string fileName, string contentType, string bucketName, MediaType type = MediaType.Video)
+    public static MediaAsset Create(Guid id,MovieId movieId, string fileName, string contentType, string bucketName, MediaType type = MediaType.Video)
     {
         // Tạo Storage Key convention: {type}/{Date}/{Id}{ext}
         var ext = Path.GetExtension(fileName);
@@ -26,6 +27,7 @@ public class MediaAsset : Aggregate<Guid>
         var asset = new MediaAsset
         {
             Id = id,
+            MovieId = movieId,
             Status = MediaStatus.Pending,
             Type = type,
             Storage = StorageLocation.Of(bucketName, key),
@@ -55,6 +57,7 @@ public class MediaAsset : Aggregate<Guid>
         // Thêm Domain Event
         AddDomainEvent(new MediaUploadedDomainEvent(
             Id, 
+            MovieId.Value,
             Storage.Bucket, 
             Storage.Key, 
             Metadata.ContentType, 
