@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Media.API.Domain.Abstractions;
+namespace Media.Domain.Abstractions;
 
 public interface IDomainEvent : INotification
 {

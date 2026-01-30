@@ -1,4 +1,4 @@
-namespace Media.API.Domain.Abstractions;
+namespace Media.Domain.Abstractions;
 
 public interface IAggregate<T> : IAggregate, IEntity<T>
 {

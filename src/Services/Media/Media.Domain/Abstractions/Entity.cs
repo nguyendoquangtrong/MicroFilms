@@ -1,4 +1,4 @@
-namespace Media.API.Domain.Abstractions;
+namespace Media.Domain.Abstractions;
 
 public abstract class Entity<T> : IEntity<T>
 {
