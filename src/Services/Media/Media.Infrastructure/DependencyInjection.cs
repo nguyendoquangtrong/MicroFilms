@@ -1,8 +1,10 @@
 using Amazon.S3;
-using Marten;
-using MassTransit; // <--- Thêm namespace này
+using MassTransit; 
 using Media.Application.Abstractions;
+using Media.Application.Data;
+using Media.Infrastructure.Data;
 using Media.Infrastructure.Storage;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,29 +15,28 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructureServices
         (this IServiceCollection services, IConfiguration configuration)
     {
-        // 1. Cấu hình Storage (S3/R2)
         var storageConfig = configuration.GetSection("Storage");
         services.AddSingleton<IAmazonS3>(sp =>
         {
             var config = new AmazonS3Config
             {
                 ServiceURL = storageConfig["ServiceUrl"],
-                // Với R2/S3 thật thì ForcePathStyle thường là false (hoặc bỏ qua). 
-                // Với MinIO thì bắt buộc true.
-                ForcePathStyle = true 
+                ForcePathStyle = true,
+                AuthenticationRegion = "auto"
             };
             return new AmazonS3Client(storageConfig["AccessKey"], storageConfig["SecretKey"], config);
         });
 
         services.AddScoped<IStorageService, S3StorageService>();
-
-        // 2. Cấu hình Database (Marten)
-        services.AddMarten(opts =>
+        var connectionString = configuration.GetConnectionString("Database");
+        services.AddDbContext<MediaDbContext>(options =>
         {
-            opts.Connection(configuration.GetConnectionString("Database")!);
-        }).UseLightweightSessions();
+            options.UseNpgsql(connectionString);
+        });
+        
+        services.AddScoped<IApplicationDbontext, MediaDbContext>();
 
-        // 3. Cấu hình Message Broker (MassTransit/RabbitMQ) ---> THÊM ĐOẠN NÀY
+
         services.AddMassTransit(bus =>
         {
             bus.SetKebabCaseEndpointNameFormatter();

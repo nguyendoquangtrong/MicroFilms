@@ -1,11 +1,12 @@
 using BuildingBlocks.CQRS;
 using FluentValidation;
 using Media.Application.Abstractions;
+using Media.Application.Data;
 using Media.Domain.Enums;
 using Media.Domain.Models;
 using Media.Domain.ValueObjects;
 using Microsoft.Extensions.Configuration;
-using Marten;
+
 
 namespace Media.Application.Features.CreateMediaUpload;
 
@@ -29,7 +30,7 @@ public class CreateMediaUploadValidator : AbstractValidator<CreateMediaUploadCom
 }
 
 public class CreateMediaUploadHandler(
-    IDocumentSession session,
+    IApplicationDbontext dbContext,
     IStorageService storageService,
     IConfiguration config
 ) : ICommandHandler<CreateMediaUploadCommand, CreateMediaUploadResult>
@@ -49,8 +50,8 @@ public class CreateMediaUploadHandler(
             command.Type
         );
 
-        session.Store(mediaAsset);
-        await session.SaveChangesAsync(cancellationToken);
+        dbContext.MediaAssets.Add(mediaAsset);
+        await dbContext.SaveChangesAsync(cancellationToken);
 
         // Lấy Presigned URL để Client upload
         var uploadUrl = await storageService.GetPresignedUrlAsync(
